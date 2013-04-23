@@ -1,27 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Linq;gameField
 using System.Text;
 
-// egati koda sym nashatkal!
+// Initial commit!
 
-namespace gyrmeji
+namespace Minesweeper
 {
     class Telerik
     {
-        private static int[,] matrica=new int[5,10];
-        private static int[] nekviChisla = new int[15];
-        private static int[,] state= new int[5,10];
+        private static int[,] arrayOfMines=new int[5,10];
+        private static int[] randomNumber = new int[15];
+        private static int[,] gameField= new int[5,10];
         private static int[,] open = new int[5, 10]; 
-        private static int[] topCells = new int[5];
-        private static string[] topNames = new string[5];
-        private static int topCellsCounter = 0;
+        private static int[] playerScore = new int[5];
+        private static string[] playerName = new string[5];
+        private static int playerScoreCounter = 0;
+
         private static bool IsFoundInRandomNumbers(int index, int number) 
         {
             bool result = false;
             for (int i = 0; i < index - 1; i++)
             {
-                if (nekviChisla[i] == number)
+                if (randomNumber[i] == number)
                 {
                     result = true;
                     break;
@@ -34,14 +35,14 @@ namespace gyrmeji
 
         }
 
-        private static void Initializematrica()
+        private static void InitializearrayOfMines()
         {
             for (int i = 0; i < 5; i++)
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    matrica[i, j] = 0;
-                    state[i, j] = 0;
+                    arrayOfMines[i, j] = 0;
+                    gameField[i, j] = 0;
                     open[i, j] = 0;
                 }
             }
@@ -59,15 +60,16 @@ namespace gyrmeji
                 }
 
                // Console.WriteLine("{0},{1},{2}",index,(index/10),(index % 10));
-                nekviChisla[i] = index;
+                randomNumber[i] = index;
                
 
 
-                matrica[(index / 10), (index % 10)] = 1;
+                arrayOfMines[(index / 10), (index % 10)] = 1;
                 
             }
         }
-        private static void Displaymatrica()
+
+        private static void DisplayarrayOfMines()
         {
             Console.Write("    ");
             for (int i = 0; i < 10; i++)
@@ -92,13 +94,13 @@ namespace gyrmeji
                 {
                     if(2<=j && j<=11)
                     {
-                        if(state[i,j-2]==0)
+                        if(gameField[i,j-2]==0)
                         {
                             Console.Write("? ");
                         }
                         else
                         {
-                            if(matrica[i,j-2]==1)
+                            if(arrayOfMines[i,j-2]==1)
                             {
                                 Console.Write("* ");
                             }
@@ -144,7 +146,7 @@ namespace gyrmeji
                 {
                     if (j1 == 0 && i1 == 0)
                         continue;
-                    if (proverka(i + i1, j + j1) && matrica[i + i1, j + j1] == 1)
+                    if (proverka(i + i1, j + j1) && arrayOfMines[i + i1, j + j1] == 1)
                     {
                         counter++;
                     }
@@ -174,9 +176,9 @@ namespace gyrmeji
         private static void DisplayTop()
         {
             Console.WriteLine("Scoreboard:\n");
-            for (int i = 0; i < (topCellsCounter)%6; i++)
+            for (int i = 0; i < (playerScoreCounter)%6; i++)
             {
-                Console.WriteLine("{0}. {1} --> {2} cells",i,topNames[i],topCells[i]);
+                Console.WriteLine("{0}. {1} --> {2} cells",i,playerName[i],playerScore[i]);
             }
         }
 
@@ -199,7 +201,7 @@ namespace gyrmeji
 
         static void Main(string[] argumenti)
         {
-            //Initializematrica();
+            //InitializearrayOfMines();
            /* for (int i = 0; i < 15; i++)
             {
                 Console.WriteLine(1);
@@ -209,25 +211,25 @@ namespace gyrmeji
             //{
             //    for (int j = 0; j < 10; j++)
             //    {
-            //        Console.Write(matrica[i, j]);
+            //        Console.Write(arrayOfMines[i, j]);
             //    }
             //    Console.WriteLine();
             //}
 
             //Console.WriteLine("{0}", CountNeighborcell(3,0));
-            //state[1, 3] = 1;
-            //state[2, 4] = 1;
-            //state[0, 0] = 1;
-            //state[2, 1] = 1;
-            //state[1, 0] = 1;
+            //gameField[1, 3] = 1;
+            //gameField[2, 4] = 1;
+            //gameField[0, 0] = 1;
+            //gameField[2, 1] = 1;
+            //gameField[1, 0] = 1;
 
-            //Displaymatrica();
+            //DisplayarrayOfMines();
             begin:
             // tuka skachame kogaot iskame da begin-nem
 
             Console.WriteLine("Welcome to the game “Minesweeper”.\nTry to reveal all cells without mines. Use 'top' to view the scoreboard,\n'restart' to start a new game and 'exit' to quit the game.");
         
-            Initializematrica();
+            InitializearrayOfMines();
   //tui "f:" e adski qko a?
             f:
             Console.WriteLine("\nEnter row and column: ");
@@ -256,21 +258,21 @@ namespace gyrmeji
             if (open[p1, p2] == 0)
             {
                 open[p1, p2] = 1;
-                state[p1, p2] = 1;
-                if (matrica[p1, p2] == 1)
+                gameField[p1, p2] = 1;
+                if (arrayOfMines[p1, p2] == 1)
                 {
                     for (int i = 0; i < 5; i++)
                         for (int j = 0; j < 10; j++)
-                        { state[i, j] = 1; }
-                    Displaymatrica();
+                        { gameField[i, j] = 1; }
+                    DisplayarrayOfMines();
                     Console.WriteLine("Booooom! You were killed by a mine. You revealed 2 cells without mines.Please enter your name for the top scoreboard:");
                     string str = Console.ReadLine();
-                    topNames[topCellsCounter % 5] = str;
-                    topCells[topCellsCounter % 5] = CountOpen() - 1;
+                    playerName[playerScoreCounter % 5] = str;
+                    playerScore[playerScoreCounter % 5] = CountOpen() - 1;
                     goto begin;
                 }
                 Console.WriteLine(CountNeighborcell(p1, p2));
-                Displaymatrica();
+                DisplayarrayOfMines();
                 goto f;
             }
 
