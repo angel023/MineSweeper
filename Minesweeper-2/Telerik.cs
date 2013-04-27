@@ -7,16 +7,28 @@ using System.Text;
 
 namespace Minesweeper
 {
-    class Telerik
+    //rename class form ttelrik to current
+    class TelerikMInesweeperTEamHalfnium
     {    
+        // rename everywhere  atrica to arrayofMines
         private static int[,] arrayOfMines=new int[5,10];
+        // rename everywhere  nekviChisla to randomNumber
         private static int[] randomNumber = new int[15];
+        //rename everywhere state to gameBoard
         private static int[,] gameBoard= new int[5,10];
-        private static int[,] open = new int[5, 10]; 
+
+        //TO DO: rename open to .....
+        private static int[,] open = new int[5, 10];
+ 
+        // rename topCells to playerScore
         private static int[] playerScore = new int[5];
+
+        // rename everywhere topNames to playerName
         private static string[] playerName = new string[5];
+        // rename topCellsCounter to playerScoreCounter
         private static int playerScoreCounter = 0;
         
+        //delete some empty lines
         private static bool IsFoundInRandomNumbers(int index, int number) 
         {
             bool result = false;
@@ -28,13 +40,10 @@ namespace Minesweeper
                     break;
                 }
             }
-
             return result;
-
-
-
         }
 
+        
         private static void InitializeArrayOfMines()
         {
             for (int i = 0; i < 5; i++)
@@ -154,6 +163,7 @@ namespace Minesweeper
             return counter;
         }
 
+        //removed nonsence comments
         private static void DisplayTop()
         {
             Console.WriteLine("Scoreboard: {0}", Environment.NewLine);
@@ -163,11 +173,40 @@ namespace Minesweeper
             }
         }
 
+        //refactor the method in quallity terms origirn is return ( 0<=i && i<=4) && (0<=j && j<=9)
         private static bool CheckBoardDimensions(int i,int j)
         {
-            return ( 0<=i && i<=4) && (0<=j && j<=9);
+            bool validationRow;
+            bool validationColumn;
+            if(0<=i && i<=4)
+            {
+                validationRow = true;
+            }
+            else
+            {
+                validationRow = false;
+            }
+            if(0<=j && j<=9)
+            {
+                validationColumn = true;
+            }
+            else
+            {
+                validationColumn = false;
+            }
+            bool validBoardDimensions; 
+            if(validationRow==true && validationColumn==true)
+            {
+                validBoardDimensions = true;
+            }
+            else
+            {
+                validBoardDimensions = false;
+            }
+            return validBoardDimensions;
         }
 
+        // rename res to result 
         private static int CountOpen()
         {
             int result = 0;
@@ -210,13 +249,15 @@ namespace Minesweeper
 
             //TO DO: Some REFACTORING Used for go to !!!
             begin:
-           
+            //ADD Enviroment.Newline instead \n. Clear
             Console.WriteLine("Welcome to the game “Minesweeper”.{0} Try to reveal all cells without mines. Use 'TOP' to view the scoreboard, {0}'RESTART' to start a new game and 'EXIT' to quit the game.", Environment.NewLine);
         
             InitializeArrayOfMines();
 
             //TO DO:Refactoring with While!!!
+            // delete -> //tui "f:" e adski qko a?
              f:
+            //ADD Enviroment.Newline and add meaning text
             Console.WriteLine("{0} Please input your move: ",Environment.NewLine);
             string playersMove = Console.ReadLine();
 
@@ -238,14 +279,16 @@ namespace Minesweeper
             }
 
             // MAIN
+               // rename p to playersMove
             if (playersMove.Length < 3)
             { 
                 Console.WriteLine("Illegal input");
                 goto f;
             }
 
+         // rename p1 to moveToRow
             int moveToRow = Convert.ToInt32((playersMove.ElementAt(0)).ToString());
-
+        // rename p1 to moveToColumn
             int moveToColumn = Convert.ToInt32((playersMove.ElementAt(2)).ToString());
 
             Console.WriteLine(moveToRow);
@@ -270,6 +313,7 @@ namespace Minesweeper
                         }
 
                         DisplayArrayOfMines();
+                    // rewrite some of the message 
                         Console.WriteLine("Booooom! You were killed by a mine. {0} You score is {1}. Please enter your name for the top scoreboard: ", Environment.NewLine, playerScoreCounter);
 
                     string name = Console.ReadLine();
@@ -288,6 +332,7 @@ namespace Minesweeper
                 goto f;
 
             }
+            // remove //Console.WriteLine(w==q);
             Console.WriteLine();
 
             end:
