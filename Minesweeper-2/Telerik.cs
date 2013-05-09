@@ -9,7 +9,7 @@ using System.Text;
 namespace Minesweeper
 {
     //rename class form ttelrik to current
-    class TelerikMInesweeperTEamHalfnium
+    class MinesweeperProject
     {
         // rename everywhere  atrica to arrayofMines
         private static int[,] arrayOfMines = new int[5, 10];
@@ -18,8 +18,8 @@ namespace Minesweeper
         //rename everywhere state to gameBoard
         private static int[,] gameBoard = new int[5, 10];
 
-        //TO DO: rename open to .....
-        private static int[,] open = new int[5, 10];
+        //rename <open> to <isCellOpen>
+        private static int[,] isCellOpen = new int[5, 10];
 
         // rename topCells to playerScore
         private static int[] playerScore = new int[5];
@@ -53,7 +53,7 @@ namespace Minesweeper
                 {
                     arrayOfMines[i, j] = 0;
                     gameBoard[i, j] = 0;
-                    open[i, j] = 0;
+                    isCellOpen[i, j] = 0;
                 }
             }
 
@@ -110,7 +110,7 @@ namespace Minesweeper
                             }
                             else
                             {
-                                if (open[i, j - 2] == 1)
+                                if (isCellOpen[i, j - 2] == 1)
                                 {
                                     Console.Write("{0} ", CountNeighborcell(i, j - 2));
                                 }
@@ -214,7 +214,7 @@ namespace Minesweeper
             for (int i = 0; i < 5; i++)
                 for (int j = 0; j < 10; j++)
                 {
-                    if (open[i, j] == 1)
+                    if (isCellOpen[i, j] == 1)
                     {
                         result++;
                     }
@@ -279,9 +279,9 @@ namespace Minesweeper
                 {
                     Console.WriteLine(moveToRow);
 
-                    if (open[moveToRow, moveToColumn] == 0)
+                    if (isCellOpen[moveToRow, moveToColumn] == 0)
                     {
-                        open[moveToRow, moveToColumn] = 1;
+                        isCellOpen[moveToRow, moveToColumn] = 1;
                         gameBoard[moveToRow, moveToColumn] = 1;
 
                         if (arrayOfMines[moveToRow, moveToColumn] == 1)
@@ -310,7 +310,7 @@ namespace Minesweeper
                         }
                     }
 
-                    else if (open[moveToRow, moveToColumn] == 1)
+                    else if (isCellOpen[moveToRow, moveToColumn] == 1)
                     {
                         Console.WriteLine("Illegal move!");
                     }
