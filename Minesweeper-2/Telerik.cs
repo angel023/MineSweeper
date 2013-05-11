@@ -47,13 +47,13 @@ namespace Minesweeper
 
         private static void InitializeArrayOfMines()
         {
-            for (int i = 0; i < 5; i++)
+            for (int row = 0; row < 5; row++) //change i to row
             {
-                for (int j = 0; j < 10; j++)
+                for (int col = 0; col < 10; col++)// change j to col
                 {
-                    arrayOfMines[i, j] = 0;
-                    gameBoard[i, j] = 0;
-                    isCellOpen[i, j] = 0;
+                    arrayOfMines[row, col] = 0;
+                    gameBoard[row, col] = 0;
+                    isCellOpen[row, col] = 0;
                 }
             }
 
@@ -73,75 +73,144 @@ namespace Minesweeper
             }
         }
 
-        private static void DisplayArrayOfMines()
+        //I changed the name of DisplayArrayOfMines with DisplayGameField because this method load the whole field.
+        //And make some refactoring
+        private static void DisplayGameField()
+        {
+            DisplayColNumbers();
+
+            DisplayHorizontalWall();
+
+            for (int row = 0; row < 5; row++)
+            {
+                Console.Write(row + " | ");
+
+                DisplaySingleFieldRow(row);
+
+                Console.WriteLine("|");
+            }
+
+            DisplayHorizontalWall();
+        }
+
+        private static void DisplaySingleFieldRow(int row)
+        {
+            for (int col = 0; col < 10; col++)
+            {
+                if (gameBoard[row, col] == 0)
+                {
+                    Console.Write("? ");
+                }
+                else
+                {
+                    if (arrayOfMines[row, col] == 1)
+                    {
+                        Console.Write("* ");
+                    }
+                    else
+                    {
+                        if (isCellOpen[row, col] == 1)
+                        {
+                            Console.Write("{0} ", CountNeighborcell(row, col));
+                        }
+                        else
+                        {
+                            Console.Write("- ");
+                        }
+                    }
+                }
+            }
+        }
+
+        private static void DisplayColNumbers()
         {
             Console.Write("    ");
-
             for (int i = 0; i < 10; i++)
             {
                 Console.Write("{0} ", i);
             }
-
-            Console.WriteLine("");
-            Console.Write("    ");
-
-            for (int i = 0; i < 21; i++)
-            {
-                Console.Write("-");
-            }
-
-            Console.WriteLine("");
-
-            for (int i = 0; i < 5; i++)
-            {
-                for (int j = 0; j < 13; j++)
-                {
-                    if (2 <= j && j <= 11)
-                    {
-                        if (gameBoard[i, j - 2] == 0)
-                        {
-                            Console.Write("? ");
-                        }
-                        else
-                        {
-                            if (arrayOfMines[i, j - 2] == 1)
-                            {
-                                Console.Write("* ");
-                            }
-                            else
-                            {
-                                if (isCellOpen[i, j - 2] == 1)
-                                {
-                                    Console.Write("{0} ", CountNeighborcell(i, j - 2));
-                                }
-                                else
-                                {
-                                    Console.Write("- ");
-                                }
-                            }
-                        }
-                    }
-                    if (j == 1 || j == 12)
-                    {
-                        Console.Write("| ");
-                    }
-                    if (j == 0)
-                    {
-                        Console.Write("{0} ", i);
-                    }
-                }
-                Console.WriteLine("");
-            }
-
-            Console.Write("    ");
-
-            for (int i = 0; i < 21; i++)
-            {
-                Console.Write("-");
-            }
-
             Console.WriteLine("");
         }
+
+        private static void DisplayHorizontalWall()
+        {
+            Console.Write("   ");
+            for (int i = 0; i < 21; i++)
+            {
+                Console.Write("-");
+            }
+            Console.WriteLine();
+        }
+
+        //private static void DisplayGameField()
+        //{
+        //    Console.Write("    ");
+
+        //    for (int i = 0; i < 10; i++)
+        //    {
+        //        Console.Write("{0} ", i);
+        //    }
+
+        //    Console.WriteLine("");
+        //    Console.Write("    ");
+
+        //    for (int i = 0; i < 21; i++)
+        //    {
+        //        Console.Write("-");
+        //    }
+
+        //    Console.WriteLine("");
+
+        //    for (int i = 0; i < 5; i++)
+        //    {
+        //        for (int j = 0; j < 13; j++)
+        //        {
+        //            if (2 <= j && j <= 11)
+        //            {
+        //                if (gameBoard[i, j - 2] == 0)
+        //                {
+        //                    Console.Write("? ");
+        //                }
+        //                else
+        //                {
+        //                    if (arrayOfMines[i, j - 2] == 1)
+        //                    {
+        //                        Console.Write("* ");
+        //                    }
+        //                    else
+        //                    {
+        //                        if (isCellOpen[i, j - 2] == 1)
+        //                        {
+        //                            Console.Write("{0} ", CountNeighborcell(i, j - 2));
+        //                        }
+        //                        else
+        //                        {
+        //                            Console.Write("- ");
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //            if (j == 1 || j == 12)
+        //            {
+        //                Console.Write("| ");
+        //            }
+        //            if (j == 0)
+        //            {
+        //                Console.Write("{0} ", i);
+        //            }
+        //        }
+        //        Console.WriteLine("");
+        //    }
+
+        //    Console.Write("    ");
+
+        //    for (int i = 0; i < 21; i++)
+        //    {
+        //        Console.Write("-");
+        //    }
+
+        //    Console.WriteLine("");
+        //}
 
         private static int CountNeighborcell(int i, int j)
         {
@@ -246,14 +315,18 @@ namespace Minesweeper
             //gameBoard[2, 1] = 1;
             //gameBoard[1, 0] = 1;
 
-            //DisplayArrayOfMines();
+            //DisplayGameField();
 
             //TO DO: Some REFACTORING Used for go to !!!
 
             // Changed playersMove to playerMove. The string is initialized before the loop starts. TO DO: maybe refactor to avoid repeating code.
             string playerMove = "";
             Console.WriteLine("Welcome to the game “Minesweeper”.{0} Try to reveal all cells without mines. Use 'TOP' to view the scoreboard, {0}'RESTART' to start a new game and 'EXIT' to quit the game.", Environment.NewLine);
+
+            //Initialise the field in the beginning of the game
+            Console.WriteLine();
             InitializeArrayOfMines();
+            DisplayGameField();
 
             while (playerMove != "end")
             {
@@ -272,10 +345,14 @@ namespace Minesweeper
                     }
                     Console.WriteLine("Welcome to the game “Minesweeper”.{0} Try to reveal all cells without mines. Use 'TOP' to view the scoreboard, {0}'RESTART' to start a new game and 'EXIT' to quit the game.", Environment.NewLine);
 
+                    //Initialise the field with the start of the game
+                    Console.WriteLine();
                     InitializeArrayOfMines();
+                    DisplayGameField();
                 }
                 //Instead of f:. I also added a check to see if the command is correct
-                else if (playerMove.Length == 3 && int.TryParse(playerMove[0].ToString(), out moveToRow) && int.TryParse(playerMove[2].ToString(), out moveToColumn))
+                else if (playerMove.Length == 3 && int.TryParse(playerMove[0].ToString(), out moveToRow)
+                    && int.TryParse(playerMove[2].ToString(), out moveToColumn))
                 {
                     Console.WriteLine(moveToRow);
 
@@ -286,15 +363,15 @@ namespace Minesweeper
 
                         if (arrayOfMines[moveToRow, moveToColumn] == 1)
                         {
-                            for (int i = 0; i < 5; i++)
-                            {
-                                for (int j = 0; j < 10; j++)
-                                {
-                                    gameBoard[i, j] = 1;
+                            for (int boardRow = 0; boardRow < gameBoard.GetLength(0); boardRow++) //I changed i with boardRow and the lenght of the
+                            {                                                                     //loop with gameBoard.GetLength(0) instead magic number 5   
+                                for (int boardCol = 0; boardCol < gameBoard.GetLength(1); boardCol++) //I changed j with boardCol and the lenght of the
+                                {                                                                     //loop with gameBoard.GetLength(1) instead magic number 10   
+                                    gameBoard[boardRow, boardCol] = 1;
                                 }
                             }
 
-                            DisplayArrayOfMines();
+                            DisplayGameField();
                             // rewrite some of the message 
                             Console.WriteLine("Booooom! You were killed by a mine. {0} You score is {1}. Please enter your name for the top scoreboard: ", Environment.NewLine, playerScoreCounter);
 
@@ -306,7 +383,7 @@ namespace Minesweeper
                         else
                         {
                             Console.WriteLine(CountNeighborcell(moveToRow, moveToColumn));
-                            DisplayArrayOfMines();
+                            DisplayGameField();
                         }
                     }
 
