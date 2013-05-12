@@ -111,7 +111,7 @@ namespace Minesweeper
                     {
                         if (isCellOpen[row, col] == 1)
                         {
-                            Console.Write("{0} ", CountNeighborcell(row, col));
+                            Console.Write("{0} ", CountSurroundingMines(row, col));
                         }
                         else
                         {
@@ -181,7 +181,7 @@ namespace Minesweeper
         //                    {
         //                        if (isCellOpen[i, j - 2] == 1)
         //                        {
-        //                            Console.Write("{0} ", CountNeighborcell(i, j - 2));
+        //                            Console.Write("{0} ", CountSurroundingMines(i, j - 2));
         //                        }
         //                        else
         //                        {
@@ -212,25 +212,26 @@ namespace Minesweeper
         //    Console.WriteLine("");
         //}
 
-        private static int CountNeighborcell(int i, int j)
+        private static int CountSurroundingMines(int currentRow, int currentCol)
         {
-            int counter = 0;
-
-            for (int i1 = -1; i1 < 2; i1++)
+            int minesCounter = 0;
+           
+            for (int row = -1; row < 2; row++)
             {
-
-                for (int j1 = -1; j1 < 2; j1++)
+                for (int col = -1; col < 2; col++)
                 {
-                    if (j1 == 0 && i1 == 0)
-                        continue;
-                    if (CheckBoardDimensions(i + i1, j + j1) && arrayOfMines[i + i1, j + j1] == 1)
+                    if (col == 0 && row == 0)
                     {
-                        counter++;
+                        continue;
+                    }
+                    if (CheckIsThePosiotionValid(currentRow + row, currentCol + col) && arrayOfMines[currentRow + row, currentCol + col] == 1)
+                    {
+                        minesCounter++;
                     }
                 }
             }
 
-            return counter;
+            return minesCounter;
         }
 
         //removed nonsence comments
@@ -244,36 +245,25 @@ namespace Minesweeper
         }
 
         //refactor the method in quallity terms origirn is return ( 0<=i && i<=4) && (0<=j && j<=9)
-        private static bool CheckBoardDimensions(int i, int j)
+        //I also make little canges here I hope you liked better this way? And also change the name becouse this method
+        //check is the position valid not the dimensions
+        private static bool CheckIsThePosiotionValid(int row, int col)
         {
-            bool validationRow;
-            bool validationColumn;
-            if (0 <= i && i <= 4)
+            bool isRowValid = false; //Its more appropriate the name of bool to start with "Is"
+            if (0 <= row && row <= 4)
             {
-                validationRow = true;
+                isRowValid = true;
             }
-            else
+
+            bool isColumnValid = false;
+            if (0 <= col && col <= 9)
             {
-                validationRow = false;
+                isColumnValid = true; //Its more appropriate the name of bool to start with "Is"
             }
-            if (0 <= j && j <= 9)
-            {
-                validationColumn = true;
-            }
-            else
-            {
-                validationColumn = false;
-            }
-            bool validBoardDimensions;
-            if (validationRow == true && validationColumn == true)
-            {
-                validBoardDimensions = true;
-            }
-            else
-            {
-                validBoardDimensions = false;
-            }
-            return validBoardDimensions;
+
+            bool isValidPosition = (isRowValid && isColumnValid); //This is validation for the position not for the dimensions
+
+            return isValidPosition;
         }
 
         // rename res to result 
@@ -308,7 +298,7 @@ namespace Minesweeper
             //    Console.WriteLine();
             //}
 
-            //Console.WriteLine("{0}", CountNeighborcell(3,0));
+            //Console.WriteLine("{0}", CountSurroundingMines(3,0));
             //gameBoard[1, 3] = 1;
             //gameBoard[2, 4] = 1;
             //gameBoard[0, 0] = 1;
@@ -343,7 +333,9 @@ namespace Minesweeper
                     {
                         DisplayTop();
                     }
-                    Console.WriteLine("Welcome to the game “Minesweeper”.{0} Try to reveal all cells without mines. Use 'TOP' to view the scoreboard, {0}'RESTART' to start a new game and 'EXIT' to quit the game.", Environment.NewLine);
+                    Console.WriteLine("Welcome to the game “Minesweeper”.{0} Try to reveal all cells without mines."+
+                        " Use 'TOP' to view the scoreboard, {0}'RESTART' to start a new game and 'EXIT' to quit the game.",
+                        Environment.NewLine);
 
                     //Initialise the field with the start of the game
                     Console.WriteLine();
@@ -351,9 +343,12 @@ namespace Minesweeper
                     DisplayGameField();
                 }
                 //Instead of f:. I also added a check to see if the command is correct
+                //I add a check for the space between the row and col input, becouse I think it is not correct input 123 for example
+                //and this will be correct without this check, but I still dont like it.Maybe we must think for some method for 
+                //parsing the input.
                 else if (playerMove.Length == 3 && int.TryParse(playerMove[0].ToString(), out moveToRow)
-                    && int.TryParse(playerMove[2].ToString(), out moveToColumn))
-                {
+                    && int.TryParse(playerMove[2].ToString(), out moveToColumn) && playerMove[1].ToString() == " ")
+                {                                                                                                   
                     Console.WriteLine(moveToRow);
 
                     if (isCellOpen[moveToRow, moveToColumn] == 0)
@@ -382,7 +377,7 @@ namespace Minesweeper
                         }
                         else
                         {
-                            Console.WriteLine(CountNeighborcell(moveToRow, moveToColumn));
+                            Console.WriteLine(CountSurroundingMines(moveToRow, moveToColumn));
                             DisplayGameField();
                         }
                     }
