@@ -13,13 +13,15 @@ namespace Minesweeper
     {
         // rename everywhere  atrica to arrayofMines
         private static int[,] arrayOfMines = new int[5, 10];
-        // rename everywhere  nekviChisla to randomNumber
-        private static int[] randomNumber = new int[15];
-        //rename everywhere state to gameBoard
-        private static int[,] gameBoard = new int[5, 10];
+        // rename everywhere  nekviChisla to randomNumber.......I maked numbers becouse is not only one number
+        private static int[] randomNumbers = new int[15];
+        //rename everywhere state to gameBoard......I think gameField is little better
+        private static int[,] gameField = new int[5, 10];
 
         //rename <open> to <isCellOpen>
-        private static int[,] isCellOpen = new int[5, 10];
+        //I rename it to OpenCells becouse this array hold the information for the open cells, and isCellOpen is more 
+        //appropriate for boolean variable
+        private static int[,] OpenCells = new int[5, 10];
 
         // rename topCells to playerScore
         private static int[] playerScore = new int[5];
@@ -35,7 +37,7 @@ namespace Minesweeper
             bool result = false;
             for (int i = 0; i < index - 1; i++)
             {
-                if (randomNumber[i] == number)
+                if (randomNumbers[i] == number)
                 {
                     result = true;
                     break;
@@ -44,32 +46,44 @@ namespace Minesweeper
             return result;
         }
 
-
-        private static void InitializeArrayOfMines()
+        //This method initialise all game field not only the mines array
+        private static void InitializeNewGameField()
         {
-            for (int row = 0; row < 5; row++) //change i to row
+            ClearTheField();
+
+            InitialiseTheMinesOnTheField();
+        }
+
+        //I extracted this like a new method
+        private static void ClearTheField()
+        {
+            for (int row = 0; row < gameField.GetLength(0); row++) //change i to row and make magic number 5 to gameField.GetLength(0);
             {
-                for (int col = 0; col < 10; col++)// change j to col
+                for (int col = 0; col < gameField.GetLength(1); col++)// change j to col and make magic number 10 to gameField.GetLength(1);
                 {
                     arrayOfMines[row, col] = 0;
-                    gameBoard[row, col] = 0;
-                    isCellOpen[row, col] = 0;
+                    gameField[row, col] = 0;
+                    OpenCells[row, col] = 0;
                 }
             }
+        }
 
-            Random random = new Random();
+        //I extracted this like a new method and renamed everything inside
+        private static void InitialiseTheMinesOnTheField()
+        {
+            Random randomGenerator = new Random();
 
-            for (int i = 0; i < 15; i++)
+            for (int index = 0; index < randomNumbers.Length; index++)
             {
-                int index = random.Next(50);
+                int randomNumber = randomGenerator.Next(50);
 
-                while (IsFoundInRandomNumbers(i, index))
+                while (IsFoundInRandomNumbers(index, randomNumber))
                 {
-                    index = random.Next(50);
+                    randomNumber = randomGenerator.Next(50);
                 }
 
-                randomNumber[i] = index;
-                arrayOfMines[(index / 10), (index % 10)] = 1;
+                randomNumbers[index] = randomNumber;
+                arrayOfMines[(randomNumber / 10), (randomNumber % 10)] = 1;
             }
         }
 
@@ -81,7 +95,7 @@ namespace Minesweeper
 
             DisplayHorizontalWall();
 
-            for (int row = 0; row < 5; row++)
+            for (int row = 0; row < gameField.GetLength(0); row++)
             {
                 Console.Write(row + " | ");
 
@@ -95,9 +109,9 @@ namespace Minesweeper
 
         private static void DisplaySingleFieldRow(int row)
         {
-            for (int col = 0; col < 10; col++)
+            for (int col = 0; col < gameField.GetLength(1); col++)
             {
-                if (gameBoard[row, col] == 0)
+                if (gameField[row, col] == 0)
                 {
                     Console.Write("? ");
                 }
@@ -109,7 +123,7 @@ namespace Minesweeper
                     }
                     else
                     {
-                        if (isCellOpen[row, col] == 1)
+                        if (OpenCells[row, col] == 1)
                         {
                             Console.Write("{0} ", CountSurroundingMines(row, col));
                         }
@@ -224,7 +238,8 @@ namespace Minesweeper
                     {
                         continue;
                     }
-                    if (CheckIsThePosiotionValid(currentRow + row, currentCol + col) && arrayOfMines[currentRow + row, currentCol + col] == 1)
+                    if (CheckIsThePosiotionValid(currentRow + row, currentCol + col) &&
+                        arrayOfMines[currentRow + row, currentCol + col] == 1)
                     {
                         minesCounter++;
                     }
@@ -235,10 +250,13 @@ namespace Minesweeper
         }
 
         //removed nonsence comments
-        private static void DisplayTop()
+        //I fixed big bug here now displayTop works good
+        //I renamed to displayScoreBoard becouse this is what actually this method do
+        private static void DisplayScoreBoard()
         {
             Console.WriteLine("Scoreboard: {0}", Environment.NewLine);
-            for (int i = 0; i < playerScoreCounter % 6; i++)
+            //for (int i = 0; i < playerScoreCounter % 6; i++)
+            for (int i = 0; i < playerScore.Length; i++)
             {
                 Console.WriteLine("{0}. {1} --> {2} cells", i, playerName[i], playerScore[i]);
             }
@@ -267,23 +285,26 @@ namespace Minesweeper
         }
 
         // rename res to result 
-        private static int CountOpen()
+        //Rename the method to CountOpenCells an rename some variables
+        private static int CountOpenCells()
         {
             int result = 0;
-            for (int i = 0; i < 5; i++)
-                for (int j = 0; j < 10; j++)
+            for (int row = 0; row < gameField.GetLength(0); row++)
+            {
+                for (int col = 0; col < gameField.GetLength(1); col++)
                 {
-                    if (isCellOpen[i, j] == 1)
+                    if (OpenCells[row, col] == 1)
                     {
                         result++;
                     }
                 }
+            }
             return result;
         }
 
         static void Main(string[] argumenti)
         {
-            //InitializeArrayOfMines();
+            //InitializeNewGameField();
             /* for (int i = 0; i < 15; i++)
              {
                  Console.WriteLine(1);
@@ -315,10 +336,10 @@ namespace Minesweeper
 
             //Initialise the field in the beginning of the game
             Console.WriteLine();
-            InitializeArrayOfMines();
+            InitializeNewGameField();
             DisplayGameField();
 
-            while (playerMove != "end")
+            while (playerMove != "exit")//It must be exit not end
             {
                 Console.WriteLine("{0} Please input your move: ", Environment.NewLine);
                 playerMove = Console.ReadLine();
@@ -331,7 +352,7 @@ namespace Minesweeper
                 {
                     if (playerMove == "top")
                     {
-                        DisplayTop();
+                        DisplayScoreBoard();
                     }
                     Console.WriteLine("Welcome to the game “Minesweeper”.{0} Try to reveal all cells without mines."+
                         " Use 'TOP' to view the scoreboard, {0}'RESTART' to start a new game and 'EXIT' to quit the game.",
@@ -339,7 +360,7 @@ namespace Minesweeper
 
                     //Initialise the field with the start of the game
                     Console.WriteLine();
-                    InitializeArrayOfMines();
+                    InitializeNewGameField();
                     DisplayGameField();
                 }
                 //Instead of f:. I also added a check to see if the command is correct
@@ -351,29 +372,47 @@ namespace Minesweeper
                 {                                                                                                   
                     Console.WriteLine(moveToRow);
 
-                    if (isCellOpen[moveToRow, moveToColumn] == 0)
+                    if (OpenCells[moveToRow, moveToColumn] == 0)
                     {
-                        isCellOpen[moveToRow, moveToColumn] = 1;
-                        gameBoard[moveToRow, moveToColumn] = 1;
-
+                        OpenCells[moveToRow, moveToColumn] = 1;
+                        gameField[moveToRow, moveToColumn] = 1;
+                        playerScoreCounter += 1;
                         if (arrayOfMines[moveToRow, moveToColumn] == 1)
                         {
-                            for (int boardRow = 0; boardRow < gameBoard.GetLength(0); boardRow++) //I changed i with boardRow and the lenght of the
-                            {                                                                     //loop with gameBoard.GetLength(0) instead magic number 5   
-                                for (int boardCol = 0; boardCol < gameBoard.GetLength(1); boardCol++) //I changed j with boardCol and the lenght of the
-                                {                                                                     //loop with gameBoard.GetLength(1) instead magic number 10   
-                                    gameBoard[boardRow, boardCol] = 1;
+                            for (int boardRow = 0; boardRow < gameField.GetLength(0); boardRow++) //I changed i with boardRow and the lenght of the
+                            {                                                                     //loop with gameField.GetLength(0) instead magic number 5   
+                                for (int boardCol = 0; boardCol < gameField.GetLength(1); boardCol++) //I changed j with boardCol and the lenght of the
+                                {                                                                     //loop with gameField.GetLength(1) instead magic number 10   
+                                    gameField[boardRow, boardCol] = 1;
                                 }
                             }
 
                             DisplayGameField();
                             // rewrite some of the message 
-                            Console.WriteLine("Booooom! You were killed by a mine. {0} You score is {1}. Please enter your name for the top scoreboard: ", Environment.NewLine, playerScoreCounter);
+                            Console.WriteLine("Booooom! You were killed by a mine. {0} You score is {1}. Please enter your name for the top scoreboard: ", Environment.NewLine, playerScoreCounter-1);
 
                             string name = Console.ReadLine();
 
-                            playerName[playerScoreCounter % 5] = name;
-                            playerScore[playerScoreCounter % 5] = CountOpen() - 1;
+
+                            //Very big bug fixed! This way we can make gameboard, becouse in the original way it was no sorted.
+                            Array.Sort(playerScore);
+                            for (int i = 0; i < playerScore.Length; i++)
+                            {
+                                if (playerScoreCounter>playerScore[i])
+                                {
+                                    playerScore[i] = playerScoreCounter-1;
+                                    playerName[i] = name;
+                                    break;
+                                }
+                            }
+                            playerScoreCounter = 0;
+                            //playerName[playerScoreCounter % 5] = name;
+                            //playerScore[playerScoreCounter % 5] = CountOpenCells() - 1;
+                            
+                            //This was a big bug!!!After game over starts a new game on the old field and the old field is already
+                            //open so every move is market like not valid
+                            InitializeNewGameField();
+                            DisplayGameField();
                         }
                         else
                         {
@@ -382,7 +421,7 @@ namespace Minesweeper
                         }
                     }
 
-                    else if (isCellOpen[moveToRow, moveToColumn] == 1)
+                    else if (OpenCells[moveToRow, moveToColumn] == 1)
                     {
                         Console.WriteLine("Illegal move!");
                     }
