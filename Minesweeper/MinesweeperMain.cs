@@ -6,10 +6,10 @@ using System.Text;
 
 // Initial commit!
 
-namespace Minesweeper
+namespace MinesweeperProject
 {
     //rename class form ttelrik to current
-    class MinesweeperProject
+    class MinesweeperMain
     {
         // rename everywhere  atrica to arrayofMines
         private static int[,] arrayOfMines = new int[5, 10];
