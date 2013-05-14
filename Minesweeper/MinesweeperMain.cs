@@ -238,7 +238,7 @@ namespace MinesweeperProject
                     {
                         continue;
                     }
-                    if (CheckIsThePosiotionValid(currentRow + row, currentCol + col) &&
+                    if (IsPositionValid(currentRow + row, currentCol + col) &&
                         arrayOfMines[currentRow + row, currentCol + col] == 1)
                     {
                         minesCounter++;
@@ -265,7 +265,8 @@ namespace MinesweeperProject
         //refactor the method in quallity terms origirn is return ( 0<=i && i<=4) && (0<=j && j<=9)
         //I also make little canges here I hope you liked better this way? And also change the name becouse this method
         //check is the position valid not the dimensions
-        private static bool CheckIsThePosiotionValid(int row, int col)
+        //Changed CheckIsThePosiotionValid to IsPositionValid
+        private static bool IsPositionValid(int row, int col)
         {
             bool isRowValid = false; //Its more appropriate the name of bool to start with "Is"
             if (0 <= row && row <= 4)
@@ -393,7 +394,6 @@ namespace MinesweeperProject
 
                             string name = Console.ReadLine();
 
-
                             //Very big bug fixed! This way we can make gameboard, becouse in the original way it was no sorted.
                             Array.Sort(playerScore);
                             for (int i = 0; i < playerScore.Length; i++)
@@ -427,7 +427,7 @@ namespace MinesweeperProject
                     }
                 }
                 // Change from "(playersMove.Length < 3)". Now it checks for all invalid commands.
-                else if (playerMove != "end")
+                else if (playerMove != "exit")
                 {
                     Console.WriteLine("Illegal input");
                 }
