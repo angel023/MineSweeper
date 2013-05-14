@@ -8,7 +8,7 @@
     <ProjectGuid>{38669507-CD5F-4A88-B935-11B5977D2077}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>xxx</RootNamespace>
+    <RootNamespace>MinesweeperProject</RootNamespace>
     <AssemblyName>xxx</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
@@ -71,7 +71,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameField.cs" />
     <Compile Include="MinesweeperMain.cs" />
+    <Compile Include="Player.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">

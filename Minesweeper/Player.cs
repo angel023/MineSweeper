@@ -8,7 +8,7 @@ namespace MinesweeperProject
     struct Player
     {
         public int Score { get; set; }
-        public int Name { get; set; }
+        public string Name { get; set; }
         public string Move { get; set; }
         
         public Player() 

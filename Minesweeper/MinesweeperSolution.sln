@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinesweeperProject", "Mines
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinesweeperProjectTest", "..\MinesweeperProjectTest\MinesweeperProjectTest.csproj", "{72C62622-3E14-4794-9DAD-6FA6F65ADE52}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{46AF52A1-3D41-4184-8E2D-66EE45B9EF59}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
