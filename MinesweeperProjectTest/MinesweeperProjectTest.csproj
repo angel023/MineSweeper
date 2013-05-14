@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>f860f29b-1139-430f-9d48-b78f3375f039</ProjectGuid>
+    <ProjectGuid>{72C62622-3E14-4794-9DAD-6FA6F65ADE52}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MinesweeperProjectTest</RootNamespace>
@@ -50,8 +50,25 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="IsFoundInRandomNumbersTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="InitializeNewGameFieldTest.cs" />
+    <Compile Include="ClearTheFieldTest.cs" />
+    <Compile Include="InitialiseTheMinesOnTheFieldTest.cs" />
+    <Compile Include="DislpayGameFieldTest.cs" />
+    <Compile Include="DisplaySingleFieldRowTest.cs" />
+    <Compile Include="DisplayColNumbersTest.cs" />
+    <Compile Include="DisplayHorizontalWallTest.cs" />
+    <Compile Include="CountSurroundingMinesTest.cs" />
+    <Compile Include="DisplayScoreBoardTest.cs" />
+    <Compile Include="CheckIsThePositionValidTest.cs" />
+    <Compile Include="CountOpenCellsTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Minesweeper\MinesweeperProject.csproj">
+      <Project>{38669507-cd5f-4a88-b935-11b5977d2077}</Project>
+      <Name>MinesweeperProject</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

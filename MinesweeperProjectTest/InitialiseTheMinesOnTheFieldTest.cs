@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace MinesweeperProjectTest
 {
     [TestClass]
-    public class UnitTest2
+    public class InitialiseTheMinesOnTheFieldTest
     {
         [TestMethod]
         public void TestMethod1()
