@@ -36,7 +36,7 @@ namespace Minesweeper
             {
                 gameFieldBuilder.Append(row + " | ");
 
-                GetSingleFieldRowString(row);
+                gameFieldBuilder.Append(GetSingleFieldRowString(row));
 
                 gameFieldBuilder.AppendLine("|");
             }
