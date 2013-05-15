@@ -14,6 +14,10 @@ namespace MinesweeperProject
         //Instead of initializing the three arrays separately with the same values.
         public GameField(int rowCount, int columnCount)
         {
+            if (rowCount<=0 || columnCount<=0)
+            {
+                throw new ArgumentOutOfRangeException("The field rows and columns must be positive numbers");
+            }
             this.ArrayOfMines = new int[rowCount, columnCount];
             this.OpenCells = new int[rowCount, columnCount];
             this.Field = new int[rowCount, columnCount];
@@ -26,6 +30,14 @@ namespace MinesweeperProject
 
         public bool isCellOpen(int row, int column) 
         {
+            if (row<0 || column<0)
+            {
+                throw new ArgumentOutOfRangeException("Row and column must be positive numbers");
+            }
+            if (row>= OpenCells.GetLength(0) || column>= OpenCells.GetLength(1))
+            {
+                throw new ArgumentOutOfRangeException("Row and column must be smaller than tha array bounds");
+            }
             if (this.OpenCells[row, column] == 0)
             {
                 return true;   

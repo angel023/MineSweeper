@@ -50,19 +50,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="IsFoundInRandomNumbersTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="InitializeNewGameFieldTest.cs" />
-    <Compile Include="ClearTheFieldTest.cs" />
-    <Compile Include="InitialiseTheMinesOnTheFieldTest.cs" />
-    <Compile Include="DislpayGameFieldTest.cs" />
-    <Compile Include="DisplaySingleFieldRowTest.cs" />
-    <Compile Include="DisplayColNumbersTest.cs" />
-    <Compile Include="DisplayHorizontalWallTest.cs" />
-    <Compile Include="CountSurroundingMinesTest.cs" />
-    <Compile Include="DisplayScoreBoardTest.cs" />
-    <Compile Include="CheckIsThePositionValidTest.cs" />
-    <Compile Include="CountOpenCellsTest.cs" />
+    <Compile Include="GameFieldTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Minesweeper\MinesweeperProject.csproj">

@@ -19,7 +19,7 @@ namespace MinesweeperProject
                 Console.WriteLine("{0}. {1} --> {2} cells", i, topPlayers[i].Name, topPlayers[i].Score);
             }
         }
-
+        
         private static void EnterPlayerResult()
         {
             player.Name = Console.ReadLine();
@@ -31,7 +31,7 @@ namespace MinesweeperProject
                 topPlayers.RemoveAt(5);
             }
 
-            topPlayers = topPlayers.OrderBy(x => x.Score).ToList();
+            topPlayers = topPlayers.OrderByDescending(x => x.Score).ToList();
 
             if (topPlayers.Count > 1)
             {
@@ -49,14 +49,24 @@ namespace MinesweeperProject
             Console.WriteLine("Welcome to the game “Minesweeper”.{0} Try to reveal all cells without mines. Use 'TOP' to view the scoreboard, {0}'RESTART' to start a new game and 'EXIT' to quit the game.", Environment.NewLine);
             Console.WriteLine();
             gameField.InitializeNewGameField();
-            Console.WriteLine(gameField.ToString());
+            Console.WriteLine(gameField);
         }
 
         static void Main()
         {
-
             StartNewGame();
-
+            string expected =
+"    0 1 2 3 4 5 6 7 8 9  \n" +
+"   --------------------- \n" +
+"0 | ? ? ? ? ? ? ? ? ? ? | \n" +
+"1 | ? ? ? ? ? ? ? ? ? ? | \n" +
+"2 | ? ? ? ? ? ? ? ? ? ? | \n" +
+"3 | ? ? ? ? ? ? ? ? ? ? | \n" +
+"4 | ? ? ? ? ? ? ? ? ? ? | \n" +
+"   ---------------------  ";
+            Console.WriteLine(expected);
+            Console.WriteLine(expected.Length);
+            Console.WriteLine(gameField.ToString().Length);
             while (player.Move != "exit")
             {
                 Console.WriteLine("{0} Please input your move: ", Environment.NewLine);
@@ -69,7 +79,7 @@ namespace MinesweeperProject
                 {
                     if (player.Move == "top")
                     {
-                        Console.WriteLine(gameField.ToString());
+                        DisplayScoreBoard();
                     }
 
                     StartNewGame();
@@ -88,18 +98,19 @@ namespace MinesweeperProject
                         if (gameField.ArrayOfMines[moveToRow, moveToColumn] == 1)
                         {   
                             gameField.RevealGameField();
-                            Console.WriteLine(gameField.ToString());
-                            Console.WriteLine("Booooom! You were killed by a mine. {0} You score is {1}. Please enter your name for the top scoreboard: ", Environment.NewLine, player.Score);
+                            Console.WriteLine(gameField);
+                            Console.WriteLine("Booooom! You were killed by a mine. {0} You score is {1}."+
+                                " Please enter your name for the top scoreboard: ", Environment.NewLine, player.Score);
                             EnterPlayerResult();
                             player = new Player();
                             gameField.InitializeNewGameField();
-                            Console.WriteLine(gameField.ToString());
+                            Console.WriteLine(gameField);
                         }
                         else
                         {
                             player.Score++;
-                            Console.WriteLine(gameField.CountSurroundingMines(moveToRow, moveToColumn));
-                            Console.WriteLine(gameField.ToString());
+                            //Console.WriteLine(gameField.CountSurroundingMines(moveToRow, moveToColumn));
+                            Console.WriteLine(gameField);
                         }
                     }
 
