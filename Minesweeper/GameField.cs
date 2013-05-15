@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Minesweeper
+namespace MinesweeperProject
 {
-    class GameField
+    public class GameField
     {
         public int[,] ArrayOfMines { get; private set; }
         public int[,] OpenCells { get; private set; }
@@ -22,6 +22,18 @@ namespace Minesweeper
         {
             ClearTheField();
             InitialiseTheMinesOnTheField();
+        }
+
+        public bool isCellOpen(int row, int column) 
+        {
+            if (this.OpenCells[row, column] == 0)
+            {
+                return true;   
+            }
+            else
+            {
+                return false;
+            }
         }
 
         // All the Display methods are changed to Get and return a string instead of writing directly on the console.
@@ -67,6 +79,17 @@ namespace Minesweeper
             }
 
             return minesCounter;
+        }
+
+        public void RevealGameField()
+        {
+            for (int boardRow = 0; boardRow < this.Field.GetLength(0); boardRow++)
+            {
+                for (int boardCol = 0; boardCol < this.Field.GetLength(1); boardCol++)
+                {
+                    this.Field[boardRow, boardCol] = 1;
+                }
+            }
         }
 
         private bool IsPositionValid(int row, int col)

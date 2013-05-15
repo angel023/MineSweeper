@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MinesweeperProject
 {
-    struct Player
+    class Player
     {
         public int Score { get; set; }
         public string Name { get; set; }
@@ -14,6 +14,7 @@ namespace MinesweeperProject
         public Player() 
         {
             this.Score = 0;
+            this.Move = "";
         }
     }
 }
