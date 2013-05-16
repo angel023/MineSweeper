@@ -29,7 +29,7 @@ namespace MinesweeperProject
         public Player() 
         {
             this.Score = 0;
-            this.Move = "";
+            this.Move = string.Empty;
         }
     }
 }

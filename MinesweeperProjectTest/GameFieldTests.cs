@@ -37,7 +37,7 @@ namespace MinesweeperProjectTest
             GameField gameField = new GameField(5, 10);
 
             gameField.OpenCells[0, 2] = 1;
-            var result = gameField.isCellOpen(0, 2);
+            var result = gameField.IsCellOpen(0, 2);
 
             Assert.AreEqual(result, false);
         }
@@ -48,7 +48,7 @@ namespace MinesweeperProjectTest
             GameField gameField = new GameField(5, 10);
 
             gameField.OpenCells[0, 2] = 1;
-            var result = gameField.isCellOpen(0, 1);
+            var result = gameField.IsCellOpen(0, 1);
 
             Assert.AreEqual(result, true);
         }
@@ -60,7 +60,7 @@ namespace MinesweeperProjectTest
             GameField gameField = new GameField(5, 10);
 
             gameField.OpenCells[0, 2] = 1;
-            var result = gameField.isCellOpen(0, -1);
+            var result = gameField.IsCellOpen(0, -1);
 
             Assert.AreEqual(result, true);
         }
@@ -72,7 +72,7 @@ namespace MinesweeperProjectTest
             GameField gameField = new GameField(5, 10);
 
             gameField.OpenCells[0, 2] = 1;
-            var result = gameField.isCellOpen(0, 10);
+            var result = gameField.IsCellOpen(0, 10);
 
             Assert.AreEqual(result, true);
         }

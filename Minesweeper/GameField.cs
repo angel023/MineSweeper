@@ -44,7 +44,7 @@ namespace MinesweeperProject
         }
 
         /// <summary>
-        /// Create New GameFIeld if previous one exist.
+        /// Create New GameField if previous one exist.
         /// </summary>
         public void InitializeNewGameField()
         {
@@ -58,7 +58,7 @@ namespace MinesweeperProject
         /// <param name="row">Current move row</param>
         /// <param name="column">Current move column</param>
         /// <returns>true if is open and false if is not revealed yet.</returns>
-        public bool isCellOpen(int row, int column) 
+        public bool IsCellOpen(int row, int column) 
         {
             if (row<0 || column<0)
             {
@@ -137,6 +137,9 @@ namespace MinesweeperProject
             return minesCounter;
         }
 
+        /// <summary>
+        /// Method that reveal whole game field (mine included)
+        /// </summary>
         public void RevealGameField()
         {
             for (int boardRow = 0; boardRow < this.Field.GetLength(0); boardRow++)
@@ -148,6 +151,12 @@ namespace MinesweeperProject
             }
         }
 
+        /// <summary>
+        /// Method check the input string for valid values (the move must be in game field)
+        /// </summary>
+        /// <param name="row">input new move to row</param>
+        /// <param name="col">input new move to column</param>
+        /// <returns>true if position of the player is valid one, false if not</returns>
         private bool IsPositionValid(int row, int col)
         {
             bool isRowValid = false; //Its more appropriate the name of bool to start with "Is"
@@ -167,6 +176,10 @@ namespace MinesweeperProject
             return isValidPosition;
         }
 
+        /// <summary>
+        /// Method check number of opened cells
+        /// </summary>
+        /// <returns>number of opened cells</returns>
         private int CountOpenCells()
         {
             int result = 0;
@@ -212,6 +225,7 @@ namespace MinesweeperProject
                     }
                 }
             }
+
             return fieldRowBuilder.ToString();
         }
 
