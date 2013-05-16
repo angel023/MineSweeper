@@ -180,6 +180,7 @@ namespace MinesweeperProject
                     }
                 }
             }
+
             return result;
         }
         
@@ -216,16 +217,16 @@ namespace MinesweeperProject
 
         private string GetColNumbersString()
         {
-            StringBuilder ColNumbersBuilder = new StringBuilder();
-            ColNumbersBuilder.Append("    ");
+            StringBuilder colNumbersBuilder = new StringBuilder();
+            colNumbersBuilder.Append("    ");
 
             for (int i = 0; i < 10; i++)
             {
-                ColNumbersBuilder.Append(String.Format("{0} ", i));
+                colNumbersBuilder.Append(String.Format("{0} ", i));
             }
 
-            ColNumbersBuilder.AppendLine();
-            return ColNumbersBuilder.ToString();
+            colNumbersBuilder.AppendLine();
+            return colNumbersBuilder.ToString();
         }
 
         private string GetHorizontalWallString()
@@ -237,6 +238,7 @@ namespace MinesweeperProject
             {
                 horizontalWallBuilder.Append("-");
             }
+
             horizontalWallBuilder.AppendLine();
 
             return horizontalWallBuilder.ToString();
@@ -285,6 +287,7 @@ namespace MinesweeperProject
                     break;
                 }
             }
+
             return result;
         }
     }

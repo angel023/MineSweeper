@@ -100,7 +100,7 @@ namespace MinesweeperProject
             return true;
         }
 
-        static void Main()
+        public static void Main()
         {
             StartNewGame();
             while (player.Move != "exit")
@@ -126,7 +126,6 @@ namespace MinesweeperProject
                         return;
                     }
                 }
-
                 else if (IsMoveInputLegal(player.Move))
                 {
                     int moveToRow = int.Parse(player.Move[0].ToString());
