@@ -11,8 +11,15 @@ namespace MinesweeperProject
         public int[,] OpenCells { get; private set; }
         public int[,] Field { get; private set; } //Changed GameField to Field
 
-        //Instead of initializing the three arrays separately with the same values.
-        public GameField(int rowCount, int columnCount)
+        /// <summary>
+        /// Constructor of the GameField class 
+        /// </summary>
+        /// <param name="rowCount">Number of Rows</param>
+        /// <param name="columnCount">Number of Columns</param>
+        /// <remarks>
+        /// Both parameters must be positive integer in order to avoid exceptions.
+        /// </remarks>
+        public GameField(int rowCount, int columnCount) //Instead of initializing the three arrays separately with the same values.
         {
             if (rowCount<=0 || columnCount<=0)
             {
@@ -22,6 +29,10 @@ namespace MinesweeperProject
             this.OpenCells = new int[rowCount, columnCount];
             this.Field = new int[rowCount, columnCount];
         }
+
+        /// <summary>
+        /// Create New GameFIeld if previous one exist
+        /// </summary>
         public void InitializeNewGameField()
         {
             ClearTheField();
@@ -210,8 +221,7 @@ namespace MinesweeperProject
             }
         }
 
-        //I extracted this like a new method and renamed everything inside
-        private void InitialiseTheMinesOnTheField()
+        private void InitialiseTheMinesOnTheField() //I extracted this like a new method and renamed everything inside
         {
             Random randomGenerator = new Random();
 
