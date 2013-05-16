@@ -10,7 +10,7 @@ namespace MinesweeperProject
         private static GameField gameField = new GameField(5, 10);
         private static Player player = new Player();
         private static List<Player> topPlayers = new List<Player>();
-        
+
         private static void DisplayScoreBoard()
         {
             Console.WriteLine("Scoreboard: {0}", Environment.NewLine);
@@ -19,7 +19,7 @@ namespace MinesweeperProject
                 Console.WriteLine("{0}. {1} --> {2} cells", i, topPlayers[i].Name, topPlayers[i].Score);
             }
         }
-        
+
         private static void EnterPlayerResult()
         {
             player.Name = Console.ReadLine();
@@ -39,7 +39,7 @@ namespace MinesweeperProject
                 for (int i = 0; i < topPlayers.Count; i++)
                 {
                     Console.WriteLine(topPlayers[i].Name);
-                }               
+                }
             }
             Console.WriteLine();
         }
@@ -52,55 +52,70 @@ namespace MinesweeperProject
             Console.WriteLine(gameField);
         }
 
+        private static bool IsMoveInputLegal(string moveInput)
+        {
+            int moveToInt;
+
+            if (moveInput.Length != 3)
+            {
+                throw new FormatException("Incorrect format! The correct one is <number><space><number>!");
+            }
+            if (!int.TryParse(moveInput[0].ToString(), out moveToInt))
+            {
+                throw new FormatException("Incorrect format! The correct one is <number><space><number>!");
+            }
+            if (moveInput[1].ToString() != " ")
+            {
+                throw new FormatException("Incorrect format! The correct one is <number><space><number>!");
+            }
+            if (!int.TryParse(moveInput[2].ToString(), out moveToInt))
+            {
+                throw new FormatException("Incorrect format! The correct one is <number><space><number>!");
+            }
+            return true;
+        }
+
         static void Main()
         {
             StartNewGame();
-            string expected =
-"    0 1 2 3 4 5 6 7 8 9  \n" +
-"   --------------------- \n" +
-"0 | ? ? ? ? ? ? ? ? ? ? | \n" +
-"1 | ? ? ? ? ? ? ? ? ? ? | \n" +
-"2 | ? ? ? ? ? ? ? ? ? ? | \n" +
-"3 | ? ? ? ? ? ? ? ? ? ? | \n" +
-"4 | ? ? ? ? ? ? ? ? ? ? | \n" +
-"   ---------------------  ";
-            Console.WriteLine(expected);
-            Console.WriteLine(expected.Length);
-            Console.WriteLine(gameField.ToString().Length);
             while (player.Move != "exit")
             {
                 Console.WriteLine("{0} Please input your move: ", Environment.NewLine);
-                player.Move = Console.ReadLine();
+                player.Move = Console.ReadLine().ToLower();
 
-                int moveToRow;
-                int moveToColumn;
-
-                if (player.Move == "top" || player.Move == "restart")
+                if (player.Move == "top" || player.Move == "restart" || player.Move == "exit")
                 {
                     if (player.Move == "top")
                     {
                         DisplayScoreBoard();
                     }
-
-                    StartNewGame();
+                    if (player.Move == "restrt")
+                    {
+                        StartNewGame();
+                    }
+                    if (player.Move == "exit") // For the ability to exit at the beginning
+                    {
+                        Console.WriteLine("Good Bye!!!");
+                        return;
+                    }
                 }
 
-                else if (player.Move.Length == 3 && int.TryParse(player.Move[0].ToString(), out moveToRow)
-                    && int.TryParse(player.Move[2].ToString(), out moveToColumn) && player.Move[1].ToString() == " ")
-                {                                                                                                   
-                    Console.WriteLine(moveToRow);
+                else if (IsMoveInputLegal(player.Move))
+                {
+                    int moveToRow = int.Parse(player.Move[0].ToString());
+                    int moveToColumn = int.Parse(player.Move[2].ToString());
 
                     if (gameField.isCellOpen(moveToRow, moveToColumn))
                     {
                         gameField.OpenCells[moveToRow, moveToColumn] = 1;
                         gameField.Field[moveToRow, moveToColumn] = 1;
-                        
+
                         if (gameField.ArrayOfMines[moveToRow, moveToColumn] == 1)
-                        {   
+                        {
                             gameField.RevealGameField();
                             Console.WriteLine(gameField);
-                            Console.WriteLine("Booooom! You were killed by a mine. {0} You score is {1}."+
-                                " Please enter your name for the top scoreboard: ", Environment.NewLine, player.Score);
+                            Console.WriteLine(gameField.ToString());
+                            Console.WriteLine("You were killed by a mine. {0} You score is {1}. Please enter your name for the top scoreboard: ", Environment.NewLine, player.Score);
                             EnterPlayerResult();
                             player = new Player();
                             gameField.InitializeNewGameField();
@@ -114,18 +129,15 @@ namespace MinesweeperProject
                         }
                     }
 
-                    else 
-                    {
-                        Console.WriteLine("Illegal move!");
-                    }
-                }
-                else if (player.Move != "exit")
-                {
-                    Console.WriteLine("Illegal input");
+                    // To be deleted -> Implement in the class IsMoveInputLegal -> Out of range exeption
+                    //else
+                    //{
+                    //    Console.WriteLine("Illegal move!");
+                    //}
                 }
             }
-            Console.WriteLine();
 
+            Console.WriteLine();
             Console.WriteLine("Good Bye!!!");
         }
     }
