@@ -7,11 +7,23 @@ namespace MinesweeperProject
 {
     public class GameField
     {
+        /// <summary>
+        /// Gets the created Array of Mines in Game Field
+        /// </summary>
         public int[,] ArrayOfMines { get; private set; }
+
+        /// <summary>
+        /// Gets the currently Open Cells in the Game field
+        /// </summary>
         public int[,] OpenCells { get; private set; }
+
+        /// <summary>
+        /// Gets the game field two dimensional
+        /// </summary>
         public int[,] Field { get; private set; } //Changed GameField to Field
 
         /// <summary>
+        /// Initializes a new instance of the class GameField
         /// Constructor of the GameField class 
         /// </summary>
         /// <param name="rowCount">Number of Rows</param>
@@ -25,13 +37,14 @@ namespace MinesweeperProject
             {
                 throw new ArgumentOutOfRangeException("The field rows and columns must be positive numbers");
             }
+
             this.ArrayOfMines = new int[rowCount, columnCount];
             this.OpenCells = new int[rowCount, columnCount];
             this.Field = new int[rowCount, columnCount];
         }
 
         /// <summary>
-        /// Create New GameFIeld if previous one exist
+        /// Create New GameFIeld if previous one exist.
         /// </summary>
         public void InitializeNewGameField()
         {
@@ -39,16 +52,24 @@ namespace MinesweeperProject
             InitialiseTheMinesOnTheField();
         }
 
+        /// <summary>
+        /// Method that check the cell of the game field is it open or not.
+        /// </summary>
+        /// <param name="row">Current move row</param>
+        /// <param name="column">Current move column</param>
+        /// <returns>true if is open and false if is not revealed yet.</returns>
         public bool isCellOpen(int row, int column) 
         {
             if (row<0 || column<0)
             {
                 throw new ArgumentOutOfRangeException("Row and column must be positive numbers");
             }
+
             if (row>= OpenCells.GetLength(0) || column>= OpenCells.GetLength(1))
             {
                 throw new ArgumentOutOfRangeException("Row and column must be smaller than tha array bounds");
             }
+
             if (this.OpenCells[row, column] == 0)
             {
                 return true;   
@@ -59,9 +80,14 @@ namespace MinesweeperProject
             }
         }
 
-        // All the Display methods are changed to Get and return a string instead of writing directly on the console.
+        /// <summary>
+        /// Override Method To String in order to create Game Field over console.
+        /// </summary>
+        /// <returns>String of Game field visualize over the console.</returns>
         public override string ToString()
         {
+            // All the Display methods are changed to Get and return a string 
+            // instead of writing directly on the console.
             StringBuilder gameFieldBuilder = new StringBuilder();
             gameFieldBuilder.Append(GetColNumbersString());
 
@@ -81,6 +107,12 @@ namespace MinesweeperProject
             return gameFieldBuilder.ToString();
         }
 
+        /// <summary>
+        /// Method count number of mines in cell neighbor to the open one.        /// 
+        /// </summary>
+        /// <param name="currentRow">currently opened row</param>
+        /// <param name="currentCol">currently opened column</param>
+        /// <returns>Number of mines in neighbor cells</returns>
         public int CountSurroundingMines(int currentRow, int currentCol)
         {
             int minesCounter = 0;
@@ -93,6 +125,7 @@ namespace MinesweeperProject
                     {
                         continue;
                     }
+
                     if (IsPositionValid(currentRow + row, currentCol + col) &&
                         this.ArrayOfMines[currentRow + row, currentCol + col] == 1)
                     {
@@ -199,6 +232,7 @@ namespace MinesweeperProject
         {
             StringBuilder horizontalWallBuilder = new StringBuilder();
             horizontalWallBuilder.Append("   ");
+
             for (int i = 0; i < 21; i++)
             {
                 horizontalWallBuilder.Append("-");

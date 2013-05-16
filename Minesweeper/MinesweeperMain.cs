@@ -44,6 +44,7 @@ namespace MinesweeperProject
                     Console.WriteLine(topPlayers[i].Name);
                 }
             }
+
             Console.WriteLine();
         }
 
@@ -80,18 +81,22 @@ namespace MinesweeperProject
             {
                 throw new FormatException("Incorrect format! The correct one is <number><space><number>!");
             }
+
             if (!int.TryParse(moveInput[0].ToString(), out moveToInt))
             {
                 throw new FormatException("Incorrect format! The correct one is <number><space><number>!");
             }
+
             if (moveInput[1].ToString() != " ")
             {
                 throw new FormatException("Incorrect format! The correct one is <number><space><number>!");
             }
+
             if (!int.TryParse(moveInput[2].ToString(), out moveToInt))
             {
                 throw new FormatException("Incorrect format! The correct one is <number><space><number>!");
             }
+
             return true;
         }
 
@@ -109,10 +114,12 @@ namespace MinesweeperProject
                     {
                         DisplayScoreBoard();
                     }
-                    if (player.Move == "restrt")
+
+                    if (player.Move == "restart")
                     {
                         StartNewGame();
                     }
+
                     if (player.Move == "exit") // For the ability to exit at the beginning
                     {
                         Console.WriteLine("Good Bye!!!");
@@ -143,8 +150,7 @@ namespace MinesweeperProject
                         }
                         else
                         {
-                            player.Score++;
-                            //Console.WriteLine(gameField.CountSurroundingMines(moveToRow, moveToColumn));
+                            player.Score++; //Console.WriteLine(gameField.CountSurroundingMines(moveToRow, moveToColumn));
                             Console.WriteLine(gameField);
                         }
                     }
