@@ -20,6 +20,9 @@ namespace MinesweeperProject
             }
         }
 
+        /// <summary>
+        /// Method find the best 5 TopScore PLayers and sort them in Descending Order
+        /// </summary>
         private static void EnterPlayerResult()
         {
             player.Name = Console.ReadLine();
@@ -44,6 +47,9 @@ namespace MinesweeperProject
             Console.WriteLine();
         }
 
+        /// <summary>
+        /// Initial Starting Message
+        /// </summary>
         private static void StartNewGame()
         {
             Console.Clear();
@@ -61,6 +67,11 @@ namespace MinesweeperProject
             Console.WriteLine(gameField);
         }
 
+        /// <summary>
+        /// Method for validate the Players moves
+        /// </summary>
+        /// <param name="moveInput">string parameters</param>
+        /// <returns>true for valid move false for invalid one</returns>
         private static bool IsMoveInputLegal(string moveInput)
         {
             int moveToInt;
@@ -137,12 +148,6 @@ namespace MinesweeperProject
                             Console.WriteLine(gameField);
                         }
                     }
-
-                    // To be deleted -> Implement in the class IsMoveInputLegal -> Out of range exeption
-                    //else
-                    //{
-                    //    Console.WriteLine("Illegal move!");
-                    //}
                 }
             }
 
