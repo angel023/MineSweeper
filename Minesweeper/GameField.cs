@@ -197,6 +197,12 @@ namespace MinesweeperProject
             return result;
         }
         
+        /// <summary>
+        /// Methods is used to create string of the single line of 
+        /// the gamefield on console to add it in User friendly environment
+        /// </summary>
+        /// <param name="row">current row</param>
+        /// <returns>current values of the row as string</returns>
         private string GetSingleFieldRowString(int row)
         {
             StringBuilder fieldRowBuilder = new StringBuilder();
@@ -229,6 +235,11 @@ namespace MinesweeperProject
             return fieldRowBuilder.ToString();
         }
 
+        /// <summary>
+        /// Methods is used to create string of columns of 
+        /// the gamefield on console to add it in User friendly environment
+        /// </summary>
+        /// <returns></returns>
         private string GetColNumbersString()
         {
             StringBuilder colNumbersBuilder = new StringBuilder();
@@ -243,6 +254,10 @@ namespace MinesweeperProject
             return colNumbersBuilder.ToString();
         }
 
+        /// <summary>
+        /// Method create upper and lower border of the game field
+        /// </summary>
+        /// <returns>border on console</returns>
         private string GetHorizontalWallString()
         {
             StringBuilder horizontalWallBuilder = new StringBuilder();
@@ -258,11 +273,14 @@ namespace MinesweeperProject
             return horizontalWallBuilder.ToString();
         }
 
+        /// <summary>
+        /// Method clear current game field values.
+        /// </summary>
         private void ClearTheField()
         {
             for (int row = 0; row < this.Field.GetLength(0); row++) //change i to row and make magic number 5 to gameField.GetLength(0);
             {
-                for (int col = 0; col < this.Field.GetLength(1); col++)// change j to col and make magic number 10 to gameField.GetLength(1);
+                for (int col = 0; col < this.Field.GetLength(1); col++) // change j to col and make magic number 10 to gameField.GetLength(1);
                 {
                     this.ArrayOfMines[row, col] = 0;
                     this.Field[row, col] = 0;
@@ -271,6 +289,9 @@ namespace MinesweeperProject
             }
         }
 
+        /// <summary>
+        /// Method create a random placed mines in the game field
+        /// </summary>
         private void InitialiseTheMinesOnTheField() //I extracted this like a new method and renamed everything inside
         {
             Random randomGenerator = new Random();
@@ -290,6 +311,14 @@ namespace MinesweeperProject
             }
         }
 
+        /// <summary>
+        /// Method check the random number of the InitialiseTheMinesOnTheField() methods
+        /// and if some value already exist return "request" for new instance
+        /// </summary>
+        /// <param name="index">current index</param>
+        /// <param name="number">current random number</param>
+        /// <param name="randomNumbers">all already placed random numbers</param>
+        /// <returns>true if this random number is unique of false if already exist in current scope</returns>
         private bool IsFoundInRandomNumbers(int index, int number, int[] randomNumbers)
         {
             bool result = false;
