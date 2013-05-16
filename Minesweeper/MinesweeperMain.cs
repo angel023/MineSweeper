@@ -46,7 +46,16 @@ namespace MinesweeperProject
 
         private static void StartNewGame()
         {
-            Console.WriteLine("Welcome to the game “Minesweeper”.{0} Try to reveal all cells without mines. Use 'TOP' to view the scoreboard, {0}'RESTART' to start a new game and 'EXIT' to quit the game.", Environment.NewLine);
+            Console.Clear();
+            Console.WriteLine("--------------------------------------------------");
+            Console.WriteLine("---                                            ---");
+            Console.WriteLine("---      Welcome to the game “Minesweeper”.    ---");
+            Console.WriteLine("---    Try to reveal all cells without mines.  ---");
+            Console.WriteLine("---    Write 'TOP' to view the scoreboard,     ---");
+            Console.WriteLine("---       'RESTART' to start a new game        ---");
+            Console.WriteLine("---         and 'EXIT' to quit the game.       ---");
+            Console.WriteLine("---                                            ---");
+            Console.WriteLine("--------------------------------------------------");
             Console.WriteLine();
             gameField.InitializeNewGameField();
             Console.WriteLine(gameField);
