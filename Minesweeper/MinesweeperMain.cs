@@ -101,7 +101,7 @@ namespace MinesweeperProject
                 topPlayers.RemoveAt(5);
             }
 
-            topPlayers = topPlayers.OrderByDescending(x => x.Score).ToList();
+            topPlayers = topPlayers.OrderByDescending(x => x.Name).ThenBy(x => x.Score).ToList();
 
             if (topPlayers.Count > 1)
             {
