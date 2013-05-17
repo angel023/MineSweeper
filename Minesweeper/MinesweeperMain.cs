@@ -136,29 +136,38 @@ namespace MinesweeperProject
         /// <returns>true for valid move false for invalid one</returns>
         private static bool IsMoveInputLegal(string moveInput)
         {
-            int moveToInt;
-
-            if (moveInput.Length != 3)
+            try
             {
-                throw new FormatException("Incorrect format! The correct one is <number><space><number>!");
-            }
+                int moveToInt;
+                if (moveInput.Length != 3)
+                {
+                    throw new FormatException("Incorrect format! The correct one is <number><space><number>!");
+                }
 
-            if (!int.TryParse(moveInput[0].ToString(), out moveToInt))
+                if (!int.TryParse(moveInput[0].ToString(), out moveToInt))
+                {
+                    throw new FormatException("Incorrect format! The correct one is <number><space><number>!");
+                }
+
+                if (moveInput[1].ToString() != " ")
+                {
+                    throw new FormatException("Incorrect format! The correct one is <number><space><number>!");
+                }
+
+                if (!int.TryParse(moveInput[2].ToString(), out moveToInt))
+                {
+                    throw new FormatException("Incorrect format! The correct one is <number><space><number>!");
+                }
+
+                return true;
+            }
+            catch (FormatException e)
             {
-                throw new FormatException("Incorrect format! The correct one is <number><space><number>!");
-            }
 
-            if (moveInput[1].ToString() != " ")
-            {
-                throw new FormatException("Incorrect format! The correct one is <number><space><number>!");
-            }
+                Console.WriteLine(e.Message);
 
-            if (!int.TryParse(moveInput[2].ToString(), out moveToInt))
-            {
-                throw new FormatException("Incorrect format! The correct one is <number><space><number>!");
+                return false;
             }
-
-            return true;
         }
     }
 }
