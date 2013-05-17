@@ -150,7 +150,7 @@ namespace MinesweeperProject
                 {
                     throw new FormatException("Incorrect format! The correct one is <number><space><number>!");
                 }
-                if (int.Parse(moveInput[0].ToString()) >= 5)
+                if (int.Parse(moveInput[0].ToString()) >= gameField.Field.GetLength(0))
                 {
                     throw new ArgumentOutOfRangeException("You went out of the field!");
                 }
