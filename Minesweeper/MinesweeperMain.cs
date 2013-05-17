@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MinesweeperProject
 {
-   public class MinesweeperMain
+    public class MinesweeperMain
     {
         private static GameField gameField = new GameField(5, 10);
         private static Player player = new Player();
@@ -139,26 +139,15 @@ namespace MinesweeperProject
             try
             {
                 int moveToInt;
-                if (moveInput.Length != 3)
+                if (moveInput.Length != 3 || !int.TryParse(moveInput[0].ToString(), out moveToInt) ||
+                moveInput[1].ToString() != " " || !int.TryParse(moveInput[2].ToString(), out moveToInt))
                 {
                     throw new FormatException("Incorrect format! The correct one is <number><space><number>!");
                 }
-
-                if (!int.TryParse(moveInput[0].ToString(), out moveToInt))
+                if (int.Parse(moveInput[0].ToString()) >= 5)
                 {
-                    throw new FormatException("Incorrect format! The correct one is <number><space><number>!");
+                    throw new ArgumentOutOfRangeException("You went out of the field!");
                 }
-
-                if (moveInput[1].ToString() != " ")
-                {
-                    throw new FormatException("Incorrect format! The correct one is <number><space><number>!");
-                }
-
-                if (!int.TryParse(moveInput[2].ToString(), out moveToInt))
-                {
-                    throw new FormatException("Incorrect format! The correct one is <number><space><number>!");
-                }
-
                 return true;
             }
             catch (FormatException e)
@@ -166,6 +155,11 @@ namespace MinesweeperProject
 
                 Console.WriteLine(e.Message);
 
+                return false;
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                Console.WriteLine(e.Message);
                 return false;
             }
         }
