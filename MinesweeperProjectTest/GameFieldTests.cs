@@ -210,31 +210,33 @@ namespace MinesweeperProjectTest
             Assert.AreEqual(result, expected);
         }
 
-        //[TestMethod]
-        //public void ToStringTest()
-        //{
-        //    GameField gameField = new GameField(0, 10);
-        //    gameField.ArrayOfMines[0, 2] = 1;
-        //    gameField.ArrayOfMines[0, 4] = 1;
-        //    gameField.OpenCells[0, 3] = 1;
-        //    gameField.Field[0, 3] = 1;
-        //    StringBuilder sb = new StringBuilder();
-        //    sb.Append("    0 1 2 3 4 5 6 7 8 9 ");
-        //    sb.AppendLine();
-        //    sb.Append("   ---------------------");
-        //    sb.AppendLine();
-        //    sb.AppendLine("0 | ");
-        //    sb.Append("? ? ? 2 ? ? ? ? ? ? ");
-        //    sb.AppendLine("|");
-        //    sb.Append("   ---------------------");
-        //    sb.AppendLine();
-        //    sb.AppendLine();
+        [TestMethod]
+        public void ToStringTest()
+        {
+            GameField gameField = new GameField(2, 10);
+            gameField.ArrayOfMines[0, 2] = 1;
+            gameField.ArrayOfMines[0, 4] = 1;
+            gameField.OpenCells[0, 3] = 1;
+            gameField.Field[0, 3] = 1;
+            StringBuilder sb = new StringBuilder();
+            sb.Append("    0 1 2 3 4 5 6 7 8 9 ");
+            sb.AppendLine();
+            sb.Append("   ---------------------");
+            sb.AppendLine();
+            sb.Append("0 | ");
+            sb.Append("? ? ? 2 ? ? ? ? ? ? ");
+            sb.AppendLine("|");
+            sb.Append("1 | ");
+            sb.Append("? ? ? ? ? ? ? ? ? ? ");
+            sb.AppendLine("|");
+            sb.Append("   ---------------------");
+            sb.AppendLine();
 
-        //    var result = gameField.ToString();
+            var result = gameField.ToString();
 
-        //    string expected = sb.ToString();
+            string expected = sb.ToString();
 
-        //    Assert.AreEqual(result, expected);
-        //}
+            Assert.AreEqual(result, expected);
+        }
     }
 }
