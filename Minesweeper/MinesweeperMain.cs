@@ -5,12 +5,18 @@ using System.Text;
 
 namespace MinesweeperProject
 {
+    /// <summary>
+    /// In this class we have Minesweeper game logic 
+    /// </summary>
     public class MinesweeperMain
     {
         private static GameField gameField = new GameField(5, 10);
         private static Player player = new Player();
         private static List<Player> topPlayers = new List<Player>();
 
+        /// <summary>
+        /// This method works with the other classes and methods to control the game logic 
+        /// </summary>
         public static void Main()
         {
             StartNewGame();
